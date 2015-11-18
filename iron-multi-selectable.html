@@ -26,6 +26,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       /**
+       * If true, deselection is allowed. Only applicable if multi is false.
+       **/
+      allowDeselect: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
        * Gets or sets the selected elements. This is used instead of `selected` when `multi`
        * is true.
        */
@@ -41,8 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         type: Array,
         readOnly: true,
         notify: true
-      },
-
+      }
     },
 
     observers: [
@@ -63,12 +70,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           this.selectedValues = [value];
         }
-      } else {
+      } else if(this.allowDeselect){
         if(this.selected == value){
           this.selected = null;
         }else{
           this.selected = value;
         }
+      }else{
+        this.selected = value;
       }
     },
 
